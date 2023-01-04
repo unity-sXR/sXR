@@ -107,6 +107,11 @@ public class sXR_Settings : EditorWindow
         loadableSettings.use_steamVR = GUILayout.Toggle(loadableSettings.use_steamVR,
             new GUIContent("   Use SteamVR",
                 "Enable to use SteamVR controller bindings, can make some devices unreachable"));
+        
+        GUILayout.Space(20);
+        loadableSettings.use_URP = GUILayout.Toggle(loadableSettings.use_URP,
+            new GUIContent("   Use Universal Rendering Pipeline (URP)",
+                "Enable to use URP"));
 
         
         if (EditorGUI.EndChangeCheck()){
@@ -130,6 +135,12 @@ public class sXR_Settings : EditorWindow
             else 
                 EditorUtils.RemoveDefineIfNecessary("SXR_USE_STEAMVR",NamedBuildTarget.Standalone); 
 
+            if (loadableSettings.use_URP) 
+                EditorUtils.AddDefineIfNecessary("SXR_USE_URP", NamedBuildTarget.Standalone);
+            else 
+                EditorUtils.RemoveDefineIfNecessary("SXR_USE_URP",NamedBuildTarget.Standalone); 
+
+            
             SaveToJson(); 
         } 
     }

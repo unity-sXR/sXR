@@ -14,7 +14,22 @@ public class TimerHandler : MonoBehaviour {
     /// </summary>
     /// <param name="timerName"></param>
     /// <param name="duration"></param>
-    public void AddTimer(string timerName, float duration) { allTimers.Add(new Timer(timerName, duration)); }
+    public void AddTimer(string timerName, float duration) {
+        if(!TimerExists(timerName)) 
+            allTimers.Add(new Timer(timerName, duration));
+        else
+            Debug.LogWarning("Timer with name \"" + timerName +"\" already exists"); }
+
+    /// <summary>
+    /// Checks if a timer with provided name is already initiated
+    /// </summary>
+    /// <param name="timerName"></param>
+    /// <returns></returns>
+    public bool TimerExists(string timerName) {
+        foreach (var timer in allTimers)
+            if (timer.GetName() == timerName)
+                return true;
+        return false; }
     
     /// <summary>
     /// Checks if Timer.duration (seconds) has passed for the named timer.

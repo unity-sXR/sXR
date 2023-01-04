@@ -25,7 +25,7 @@ public class OpenXR_Controller : ControllerVR {
                     if (!controller.TryGetFeatureValue(CommonUsages.triggerButton, out buttonPressed[
                         (int) (rightSide ? ControllerButton.RH_Trigger : ControllerButton.LH_Trigger)]))
                         sxr.DebugLog("No trigger found for device: " + controller.name);
-                    
+
                     if (!controller.TryGetFeatureValue(CommonUsages.gripButton, out buttonPressed[
                         (int) (rightSide ? ControllerButton.RH_SideButton: ControllerButton.LH_SideButton)]))
                         sxr.DebugLog("No side button found for device: " + controller.name);
@@ -82,7 +82,7 @@ public class OpenXR_Controller : ControllerVR {
                         buttonPressed[(int) ControllerButton.LH_TrackPadLeft] ||
                         buttonPressed[(int) ControllerButton.RH_TrackPadLeft];
                     
-                    buttonPressed[(int) ControllerButton.Trigger] =
+                    buttonPressed[(int) ControllerButton.TrackPadRight] =
                         buttonPressed[(int) ControllerButton.LH_TrackPadRight] ||
                         buttonPressed[(int) ControllerButton.RH_TrackPadRight];
                     

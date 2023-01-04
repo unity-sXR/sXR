@@ -46,23 +46,23 @@ public class JoystickHandler : MonoBehaviour
         float horizontal_input = Input.GetAxis("Horizontal");
         float vertical_input = Input.GetAxis("Vertical");
         
-        UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenRight, enabled:false);
-        UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenBottomRight, enabled:false);
-        UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenBottom, enabled:false);
-        UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenBottomLeft, enabled:false);
-        UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenLeft, enabled:false);
-        UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenTopLeft, enabled:false);
-        UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenTop, enabled:false);
-        UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenTopRight, enabled:false);
+        UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenRight, enabled:false);
+        UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenBottomRight, enabled:false);
+        UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenBottom, enabled:false);
+        UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenBottomLeft, enabled:false);
+        UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenLeft, enabled:false);
+        UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenTopLeft, enabled:false);
+        UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenTop, enabled:false);
+        UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenTopRight, enabled:false);
         
-        if (horizontal_input > .5 & Math.Abs(vertical_input) < .2) UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenRight);
-        else if (horizontal_input > .5 & vertical_input < -.5)  UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenBottomRight);
-        else if (Math.Abs(horizontal_input) < .2 & vertical_input < -.5) UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenBottom);
-        else if (horizontal_input < -.5 & vertical_input < -.5 )UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenBottomLeft);
-        else if (horizontal_input < -.5 & Math.Abs(vertical_input) < .2) UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenLeft);
-        else if (horizontal_input < -.5 & vertical_input > .5) UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenTopLeft);
-        else if (Math.Abs(horizontal_input) < .2 & vertical_input > .5) UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenTop);
-        else if (horizontal_input > .5 & vertical_input > .5) UI_Handler.Instance.EnableComponentUI(UI_Handler.Position.PartialScreenTopRight); }
+        if (horizontal_input > .5 & Math.Abs(vertical_input) < .2) UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenRight);
+        else if (horizontal_input > .5 & vertical_input < -.5)  UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenBottomRight);
+        else if (Math.Abs(horizontal_input) < .2 & vertical_input < -.5) UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenBottom);
+        else if (horizontal_input < -.5 & vertical_input < -.5 )UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenBottomLeft);
+        else if (horizontal_input < -.5 & Math.Abs(vertical_input) < .2) UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenLeft);
+        else if (horizontal_input < -.5 & vertical_input > .5) UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenTopLeft);
+        else if (Math.Abs(horizontal_input) < .2 & vertical_input > .5) UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenTop);
+        else if (horizontal_input > .5 & vertical_input > .5) UI_Handler.Instance.EnableComponentUI(sxr.UI_Position.PartialScreenTopRight); }
 
     // Singleton initiated on Awake()
     public static JoystickHandler Instance; 

@@ -12,42 +12,33 @@ using UnityEngine.XR.Management;
 public class AutomaticDesktopVsVR : MonoBehaviour
 {
 #if SXR_USE_AUTOVR
-[SerializeField] float checkFrequency=5000; 
-	float lastCheck;
+[SerializeField] float checkFrequency=3; 
+	float lastCheck = 0;
     private SimpleFirstPersonMovement firstPerson;
-    private bool activeXR; 
-    private bool initialized; 
 
     void Start() {
-Debug.Log("Using automatic Desktop vs VR");
+        Debug.Log("Using automatic Desktop vs VR");
         firstPerson = gameObject.GetComponent<SimpleFirstPersonMovement>();
-        InputDevices.deviceConnected += CheckHeadset;
-        InputDevices.deviceDisconnected += CheckHeadset;
     }
 
     void Update(){
-        if ((!initialized && XRGeneralSettings.Instance.Manager.isInitializationComplete) || Time.time - lastCheck > checkFrequency) {
-            Debug.Log("Initialization complete (XR)");
-            initialized = true; 
-            CheckHeadset(new InputDevice()); }}
+        if (Time.time - lastCheck > checkFrequency) 
+            CheckHeadset(); }
 
     /// <summary>
     /// Checks all devices for head-tracking whenever a device is
     /// disconnected/connected
     /// </summary>
     /// <param name="device"></param>
-    void CheckHeadset(InputDevice device)
-    {
-        Debug.Log("Device configuration change: " + device.name + ", " + device.manufacturer);  
+    void CheckHeadset() {
         List<InputDevice> inputDevices = new List<InputDevice>();
-        InputDevices.GetDevicesWithCharacteristics(InputDeviceCharacteristics.HeadMounted, inputDevices); 
-        
-        if (inputDevices.Count > 0 & !activeXR) 
+        InputDevices.GetDevicesWithCharacteristics(InputDeviceCharacteristics.HeadMounted, inputDevices);
+        if (inputDevices.Count > 0 ) 
             StartXR();
-        else 
-            if (activeXR) 
-                StopXR();
-    }
+        else
+            StopXR();
+
+        lastCheck = Time.time; }
 
     void StartXR() {
         if (gameObject.GetComponent<UnityEngine.SpatialTracking.TrackedPoseDriver>() == null) 
@@ -59,15 +50,15 @@ Debug.Log("Using automatic Desktop vs VR");
             XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
             XRGeneralSettings.Instance.Manager.StartSubsystems(); }
 
-        activeXR = XRGeneralSettings.Instance.Manager.activeLoader; }
+    }
  
     void StopXR() {
-        if (XRGeneralSettings.Instance.Manager.isInitializationComplete) {
-            XRGeneralSettings.Instance.Manager.StopSubsystems();
-            firstPerson.enabled = true;
-            activeXR = false;
-            if (gameObject.GetComponent<UnityEngine.SpatialTracking.TrackedPoseDriver>() != null)
-                gameObject.GetComponent<UnityEngine.SpatialTracking.TrackedPoseDriver>().enabled = false;
-        } }
+        if (XRGeneralSettings.Instance.Manager.isInitializationComplete) 
+            XRGeneralSettings.Instance.Manager.StopSubsystems(); 
+        firstPerson.enabled = true;
+            
+        if (gameObject.GetComponent<UnityEngine.SpatialTracking.TrackedPoseDriver>() != null)
+            gameObject.GetComponent<UnityEngine.SpatialTracking.TrackedPoseDriver>().enabled = false;
+    } 
 #endif
 }

@@ -7,6 +7,7 @@ public class ExperimentHandler : MonoBehaviour {
     public int phase;
     public int block;
     public int trial;
+    public int stepInTrial; 
     
     private string experimentName = "";
     private string subjectFile = "";

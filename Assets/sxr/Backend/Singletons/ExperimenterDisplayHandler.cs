@@ -33,7 +33,7 @@ public class ExperimenterDisplayHandler : MonoBehaviour
 
     private void Update() {
         if (defaultDisplayTexts && ExperimentHandler.Instance.phase > 0) {
-            displayText1.text = "Phase - Block (trial)  =  " + eh.phase + "-" + eh.block + "(" + eh.trial + ")";
+            displayText1.text = "Phase - Block (trial)  =  " + eh.phase + " - " + eh.block + " (" + eh.trial + ")";
             displayText1.enabled = true; 
             
             displayText2.text = "Player Position: " + sxrSettings.Instance.vrCamera.transform.position;

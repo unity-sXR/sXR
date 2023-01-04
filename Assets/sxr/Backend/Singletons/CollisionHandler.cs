@@ -1,27 +1,39 @@
 using UnityEngine;
 
 public class CollisionHandler : MonoBehaviour {
-    public bool ObjectsWithinDistance(GameObject obj1, GameObject obj2, float distance) {
+    public bool ObjectWithinDistance(GameObject obj1, GameObject obj2, float distance) {
         return Vector3.Distance(obj1.transform.position, obj2.transform.position) < distance; }
 
-    public bool ObjectsCollidersTouching(GameObject obj1, GameObject obj2) {
-        foreach (var obj in new[] {obj1, obj2})
+    public bool ObjectsCollidersTouching(GameObject obj1, GameObject obj2)
+    {
+        bool triggerObj = false;
+        foreach (var obj in new[] {obj1, obj2}) {
             if (obj.GetComponents<Collider>().Length == 0 && obj.GetComponentsInChildren<Collider>().Length == 0)
                 obj.AddComponent<MeshCollider>();
-        
-        var obj1_collider = obj1.GetComponents<Collider>().Length > 0
-            ? obj1.GetComponents<Collider>()[0]
-            : obj1.GetComponentsInChildren<Collider>()[0];
-        var obj2_collider = obj2.GetComponents<Collider>().Length > 0
-            ? obj2.GetComponents<Collider>()[0]
-            : obj2.GetComponentsInChildren<Collider>()[0];
+            
+            if (obj.GetComponents<Rigidbody>().Length == 0 && obj.GetComponentsInChildren<Rigidbody>().Length == 0){
+                obj.AddComponent<Rigidbody>();
+                obj.GetComponent<Rigidbody>().isKinematic = true; }
 
-        sxr.DebugLog("Object1 closest point on bounds: "+obj1_collider.bounds.extents);
-        sxr.DebugLog("Object2 closest point on bounds: "+obj1_collider.ClosestPointOnBounds(obj2_collider.transform.position));
-        var closestDistance = Vector3.Distance(obj2_collider.ClosestPointOnBounds(obj1.transform.position),
-            obj1.transform.position);
-        if (obj1_collider.bounds.size.x >= closestDistance || obj1_collider.bounds.size.y >= closestDistance 
-                                                           || obj1_collider.bounds.size.z >= closestDistance )
+            if (obj.GetComponents<CollisionDetector>().Length == 0 && obj.GetComponentsInChildren<CollisionDetector>().Length == 0)
+                obj.AddComponent<CollisionDetector>();
+
+            if (triggerObj || (obj.GetComponents<Collider>().Length == 0
+                ? obj.GetComponentsInChildren<Collider>()[0]
+                : obj.GetComponent<Collider>()).isTrigger)
+                triggerObj = true; }
+
+        if (!triggerObj) // if neither object has a trigger, adds a trigger to the first object
+            (obj1.GetComponents<Collider>().Length == 0
+                ? obj1.GetComponentsInChildren<Collider>()[0]
+                : obj1.GetComponent<Collider>()).isTrigger = true; 
+
+
+        var obj1_collisions = obj1.GetComponents<CollisionDetector>().Length > 0
+            ? obj1.GetComponents<CollisionDetector>()[0]
+            : obj1.GetComponentsInChildren<CollisionDetector>()[0];
+        
+        if (obj1_collisions.objectsInContact.Contains(obj2))
             return true;
 
         return false; }
