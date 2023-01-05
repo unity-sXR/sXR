@@ -8,15 +8,17 @@ public class GrabbableObject : MonoBehaviour
     bool grabbedLastFrame = false; 
     Vector3 lastControllerPos = new Vector3(); 
     bool usesGravity;
+    private GameObject leftController, rightController; 
 
+    
     void Update() {
         bool isCurrentlyGrabbed = false;
         
         GameObject[] controllers = new[]
-            {sxr.GetObject("RightController"), sxr.GetObject("LeftController")};
+            {rightController, leftController};
         
         foreach(var controller in controllers)
-            if (CollisionHandler.Instance.ObjectsCollidersTouching(this.gameObject, controller) 
+            if (controller.activeSelf && CollisionHandler.Instance.ObjectsCollidersTouching(this.gameObject, controller) 
                 && sxr.GetTrigger(0))
             {
                 GetComponent<Rigidbody>().useGravity = false;
@@ -35,5 +37,9 @@ public class GrabbableObject : MonoBehaviour
         if (GetComponent<Rigidbody>() == null)
             gameObject.AddComponent<Rigidbody>();
 
-        usesGravity = GetComponent<Rigidbody>().useGravity; }
+        usesGravity = GetComponent<Rigidbody>().useGravity;
+
+        rightController = sxr.GetObject("RightController");
+        leftController = sxr.GetObject("LeftController");
+    }
 }
