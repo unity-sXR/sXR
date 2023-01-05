@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -12,6 +13,9 @@ public static class sxr {
    
 // ****   USER INTERFACE   ****
 
+    /// <summary>
+    /// Positions available to display UI Images. Higher numbers will display over lower numbers.
+    /// </summary>
     public enum UI_Position {
         FullScreen1, FullScreen2, FullScreen3, FullScreen4, FullScreen5, 
         PartialScreenMiddle1, PartialScreenMiddle2, PartialScreenMiddle3, PartialScreenMiddle4,
@@ -19,7 +23,16 @@ public static class sxr {
         PartialScreenTopLeft, PartialScreenTop, PartialScreenTopRight,
         PartialScreenLeft, PartialScreenRight, VRcamera }
     
+    /// <summary>
+    /// Images included by default in sXR
+    /// </summary>
     public enum Prebuilt_Images{Stop, Loading, Finished, EyeError}
+    
+    /// <summary>
+    /// Displays one of the "prebuilt" images that comes with sXR.
+    /// Use 'sxr.Prebuilt_Images' (.Stop, .Loading, .Finished, .EyeError) to specify image
+    /// </summary>
+    /// <param name="image"></param>
     public static void DisplayPrebuilt(Prebuilt_Images image)
     {UI_Handler.Instance.DisplayPrebuilt(image); }
     
@@ -45,7 +58,10 @@ public static class sxr {
     /// <summary>
     /// Parses values from the active InputSlider or InputDropdown.
     /// Can only parse float or int values for the slider and
-    /// int or string values for the dropdown
+    /// int or string values for the dropdown. Will return "false"
+    /// until the submit button on the UI interface is pressed. When button is
+    /// pressed, returns "true" and sets the referenced output (reference using 'out' keyword)
+    /// to the value provided by the InputSlider or InputDropdown
     /// </summary>
     /// <param name="output"></param>
     /// <typeparam name="T"></typeparam>
@@ -53,7 +69,19 @@ public static class sxr {
     public static bool ParseInputUI<T>(out T output)
     { return UI_Handler.Instance.ParseInputUI(out output); }
 
+    
+    /// <summary>
+    /// Pre-built positions to display text 
+    /// </summary>
     public enum TextPosition{Top, MiddleTop, MiddleBottom, Bottom, TopLeft}
+    
+    
+    /// <summary>
+    /// Displays the provided text to the specified position on the VR user interface.
+    /// Use 'sxr.TextPosition' to specify position (optional, default is 'MiddleTop')
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="position"></param>
     public static void DisplayText(string text, TextPosition position) {
         switch (position) {
             case TextPosition.Top: UI_Handler.Instance.textboxTop.text = text;
@@ -75,6 +103,9 @@ public static class sxr {
                 break; } }
     public static void DisplayText(string text){DisplayText(text, TextPosition.MiddleTop);}
 
+    /// <summary>
+    /// Hides the specified textbox displayed to the VR user interface. Use 'sxr.TextPosition' to specify position
+    /// </summary>
     public static void HideText(TextPosition position) {
         switch (position) {
             case TextPosition.Top: UI_Handler.Instance.textboxTop.enabled = false; 
@@ -89,6 +120,10 @@ public static class sxr {
                 break; 
             default: sxr.DebugLog("Text position not found");
                 break; } }
+    
+    /// <summary>
+    /// Hides all textboxes displayed to the VR user interface
+    /// </summary>
     public static void HideAllText() {
         UI_Handler.Instance.textboxTop.enabled = false;
         UI_Handler.Instance.textboxTopMiddle.enabled = false;
@@ -115,10 +150,10 @@ public static class sxr {
     /// Offers a combined "Trigger" across joystick trigger, vr controller trigger, left mouse click, and keyboard spacebar
     /// </summary>
     /// <param name="frequency">Pause between returning true when trigger/spacebar is held. Optional, default
-    /// value is 0 seconds (continuous input)</param>
+    /// value is 1 second </param>
     /// <returns>true if [frequency] seconds has passed since last trigger and trigger/space is pressed</returns>
     public static bool GetTrigger(float frequency) { return ExperimentHandler.Instance.GetTrigger(frequency);}
-    public static bool GetTrigger() { return GetTrigger(0f);}
+    public static bool GetTrigger() { return GetTrigger(1.0f);}
 
     /// <summary>
     /// Will return true at specified [frequency] if the specified key
@@ -188,40 +223,130 @@ public static class sxr {
     /// <param name="subjectNumber"></param>
     public static void StartExperiment(string experimentName, int subjectNumber) {ExperimentHandler.Instance.StartExperiment(experimentName, subjectNumber); }
 
+    /// <summary>
+    /// Returns the current "phase" in the experiment. (Phase > Block > Trial > Step)
+    /// </summary>
+    /// <returns></returns>
     public static int GetPhase() { return ExperimentHandler.Instance.phase; }
+    
+    /// <summary>
+    /// Returns the current "block" in the experiment. (Phase > Block > Trial > Step)
+    /// </summary>
+    /// <returns></returns>
     public static int GetBlock(){return ExperimentHandler.Instance.block; }
+    
+    /// <summary>
+    /// Returns the current "trial" in the experiment. (Phase > Block > Trial > Step)
+    /// </summary>
+    /// <returns></returns>
     public static int GetTrial(){return ExperimentHandler.Instance.trial; }
+    
+    /// <summary>
+    /// Returns the current "step" in the experiment. (Phase > Block > Trial > Step)
+    /// </summary>
+    /// <returns></returns>
     public static int GetStepInTrial() { return ExperimentHandler.Instance.stepInTrial;}
 
+    /// <summary>
+    /// Increments phase number by 1 and sets block/trial/step numbers to 0
+    /// </summary>
     public static void NextPhase() {
         ExperimentHandler.Instance.phase++;
         ExperimentHandler.Instance.block = 0;
         ExperimentHandler.Instance.trial = 0;
         ExperimentHandler.Instance.stepInTrial = 0; }
 
+    /// <summary>
+    /// Increments block number by 1 and sets trial/step number to 0.
+    /// </summary>
     public static void NextBlock() {
         ExperimentHandler.Instance.block++;
         ExperimentHandler.Instance.trial = 0;
         ExperimentHandler.Instance.stepInTrial = 0; }
 
+    /// <summary>
+    /// Incremented trial number by 1 and sets step to 0. 
+    /// </summary>
     public static void NextTrial() {
         ExperimentHandler.Instance.trial++;
         ExperimentHandler.Instance.stepInTrial = 0; }
+    
     public static void NextStep() { ExperimentHandler.Instance.stepInTrial++;}
 
+    /// <summary>
+    /// Sets the current "step" to the specified number
+    /// </summary>
+    /// <param name="stepNumber"></param>
     public static void SetStep(int stepNumber) { ExperimentHandler.Instance.stepInTrial = stepNumber;}
-    
+
+    /// <summary>
+    /// Starts a timer with the provided name. Will return "true" and the timer will be
+    /// deleted if CheckTimer() is used. If no name is provided, uses the default trial
+    /// timer. (Default timer is never deleted)
+    /// </summary>
+    /// <param name="timerName"></param>
+    /// <param name="duration"></param>
     public static void StartTimer(string timerName, float duration)
     {TimerHandler.Instance.AddTimer(timerName, duration);}
-
-    public static bool CheckTimer(string name) {
-        return TimerHandler.Instance.CheckTimer(name); }
+    public static void StartTimer(float duration)
+    { ExperimentHandler.Instance.StartTimer(duration);}
     
+    /// <summary>
+    /// Checks if the named timer has reached the specified duration.
+    ///  If no name is provided, uses the default trial timer
+    /// </summary>
+    /// <param name="timerName"> Optional, name assigned when using StartTimer() </param>
+    /// <returns></returns>
+    public static bool CheckTimer(string timerName) {
+        return TimerHandler.Instance.CheckTimer(timerName); }
+    public static bool CheckTimer()
+    { return ExperimentHandler.Instance.CheckTimer();}
+
+    /// <summary>
+    /// Restarts the named timer. If no name is provided, uses the default trial timer
+    /// </summary>
+    /// <param name="timerName"> Optional, name assigned when using StartTimer() </param>
+    public static void RestartTimer(string timerName) { TimerHandler.Instance.RestartTimer(timerName); }
+    public static void RestartTimer(){ExperimentHandler.Instance.RestartTimer();}
+
+    /// <summary>
+    /// Returns the amount of timer passed since the named timer was started.
+    /// If no name is provided, uses the default trial timer
+    /// </summary>
+    /// <param name="timerName">Optional, name assigned when using StartTimer()</param>
+    /// <returns></returns>
+    public static float TimePassed(string timerName)
+    { return TimerHandler.Instance.GetTimePassed(timerName);}
+    public static float TimePassed()
+    { return ExperimentHandler.Instance.GetTimePassed();}
+    
+    /// <summary>
+    /// Returns the time remaining on the named timer. If no name is provided, uses the default
+    /// trial timer
+    /// </summary>
+    /// <param name="timerName"> Optional, name assigned when using StartTimer()</param>
+    /// <returns></returns>
+    public static float TimeRemaining(string timerName) { return TimerHandler.Instance.GetTimeRemaining(timerName);}
+    public static float TimeRemaining() { return ExperimentHandler.Instance.GetTimeRemaining();}
+   
+    /// <summary>
+    /// Appends a line to the tagged csv file. Uses the subject file's name but adds _[tag]
+    /// </summary>
+    /// <param name="tag"> Tag to use in filename </param>
+    /// <param name="text"> Line to append</param>
     public static void WriteToTaggedFile(string tag, string text)
     {ExperimentHandler.Instance.WriteToTaggedFile(tag, text);}
     public static void WriteHeaderToTaggedFile(string tag, string text)
     {ExperimentHandler.Instance.WriteHeaderToTaggedFile(tag, text);}
 
+    /// <summary>
+    /// Changes the specified textbox on the experimenter's screen (is not displayed to VR)
+    /// </summary>
+    /// <param name="whichBox"></param>
+    /// <param name="text"></param>
+    public static void ChangeExperimenterTextbox(int whichBox, string text)
+    {ExperimenterDisplayHandler.Instance.ChangeTextbox(whichBox, text);}
+    
 // ****   DATA RECORDING COMMANDS   ****
     /// <summary>
     /// Start recording the camera position every time sxrSettings.recordFrame==currentFrame. Updates automatically
@@ -280,26 +405,39 @@ public static class sxr {
     /// <param name="delta_z"></param>
     /// <param name="time"></param>
     public static void MoveObject(string name, float delta_x, float delta_y, float delta_z, float time) {
-        var currentPos = GetObject(name).transform.position; 
-         MoveObjectTo(name, currentPos.x+delta_x, currentPos.y+delta_y, currentPos.z+delta_z, time); }
+        var currentPos = GetObject(name).transform.position;
+
+        if (time > 0) MoveObjectTo(name, currentPos.x + delta_x, currentPos.y + delta_y, currentPos.z + delta_z, time);
+        else GetObject(name).transform.position = currentPos + new Vector3(delta_x, delta_y, delta_z); 
+    }
     
     /// <summary>
-    /// Moves object to the specified x/y/z distance over [time] milliseconds
+    /// Moves object to the specified x/y/z distance over [time] seconds
     /// </summary>
     /// <param name="name"></param>
     /// <param name="delta_x"></param>
     /// <param name="delta_y"></param>
     /// <param name="delta_z"></param>
-    /// <param name="time"></param>
-    public static void MoveObjectTo(string name, float dest_x, float dest_y, float dest_z, float time) {
-        SceneObjectsHandler.Instance.AddMotionObject(new ObjectMotion(GetObject(name), 
-            new Vector3(dest_x, dest_y, dest_z), time )); }
+    /// <param name="time"> Optional, instantly moves object if no time is specified</param>
     public static void MoveObjectTo(GameObject obj, float dest_x, float dest_y, float dest_z, float time) {
-        SceneObjectsHandler.Instance.AddMotionObject(new ObjectMotion(obj, 
-            new Vector3(dest_x, dest_y, dest_z), time )); }
+        if (time > 0) {
+            SceneObjectsHandler.Instance.AddMotionObject(new ObjectMotion(obj,
+                new Vector3(dest_x, dest_y, dest_z), time)); }
+        else
+            obj.transform.position = new Vector3(dest_x, dest_y, dest_z); }
+    public static void MoveObjectTo(string objectName, float dest_x, float dest_y, float dest_z, float time) {
+        MoveObjectTo(GetObject(objectName), dest_x, dest_y, dest_z, time); }
     public static void MoveObjectTo(string name, float dest_x, float dest_y, float dest_z)
     { MoveObjectTo(name, dest_x, dest_y, dest_z, 0); }
 
+    /// <summary>
+    /// Spawns a primitive game object at the specified location. Default location is 0,0,0
+    /// </summary>
+    /// <param name="type"> Use UnityEngine.PrimitiveType (.Sphere, .Cube, etc)</param>
+    /// <param name="name"> Name to give the spawned object</param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="z"></param>
     public static void SpawnObject(PrimitiveType type, string name, float x, float y, float z) {
         var obj = GameObject.CreatePrimitive(type);
         obj.name = name; 
@@ -307,33 +445,105 @@ public static class sxr {
     public static void SpawnObject(PrimitiveType type, string name)
     { SpawnObject(type, name, 0, 0, 0); }
 
+    /// <summary>
+    /// Copys the object and assigns the provided name to the copy
+    /// </summary>
+    /// <param name="objectToCopy"></param>
+    /// <param name="name"></param>
     public static void SpawnObject(GameObject objectToCopy, string name) {
         var obj = GameObject.Instantiate(objectToCopy);
         obj.name = name; }
 
+    /// <summary>
+    /// Checks if the item with the provided name exists
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
     public static bool ObjectExists(string name)
-    { return GetObject(name) != null; }
+    { return SceneObjectsHandler.Instance.ObjectExists(name); }
     
-    public static void MakeObjectGrabbable(string objectName)
+    /// <summary>
+    /// Allows the object to be grabbed by touching the
+    /// object with a VR controller and pulling trigger.
+    /// Can take in object name (string) or Unity GameObject
+    /// </summary>
+    /// <param name="objectName"></param>
+    public static void MakeObjectGrabbable(GameObject gameObject)
     {
-        if (GetObject(objectName).GetComponents<GrabbableObject>().Length == 0)
-            GetObject(objectName).AddComponent<GrabbableObject>(); 
-    }
+        if (gameObject.GetComponents<GrabbableObject>().Length == 0)
+            gameObject.AddComponent<GrabbableObject>(); 
+    } public static void MakeObjectGrabbable(string objectName)
+    {MakeObjectGrabbable(GetObject(objectName)); }
 
+    /// <summary>
+    /// Adds RigidBody (Physics) to the specified object. Object can be passed by name or
+    /// as a Unity GameObject
+    /// </summary>
+    /// <param name="objectName"> Name of the object</param>
+    /// <param name="useGravity"> If the object will be affected by gravity.  Optional - Default=true</param>
+     public static void EnableObjectPhysics(GameObject gameObject, bool useGravity) {
+            if (gameObject.GetComponents<Rigidbody>().Length == 0)
+                gameObject.AddComponent<Rigidbody>();
+            gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            gameObject.GetComponent<Rigidbody>().useGravity = useGravity; }
+    public static void EnableObjectPhysics(GameObject gameObject)
+    { EnableObjectPhysics(gameObject, true);}
     public static void EnableObjectPhysics(string objectName, bool useGravity)
-    {
-        if (GetObject(objectName).GetComponents<Rigidbody>().Length == 0)
-            GetObject(objectName).AddComponent<Rigidbody>();
-        GetObject(objectName).GetComponent<Rigidbody>().isKinematic = false;
-        GetObject(objectName).GetComponent<Rigidbody>().useGravity = useGravity; 
-    }public static void EnableObjectPhysics(string objectName){EnableObjectPhysics(objectName, true);}
+    { EnableObjectPhysics(GetObject(objectName), useGravity);}
+    public static void EnableObjectPhysics(string objectName){EnableObjectPhysics(objectName, true);}
+   
 
+    /// <summary>
+    /// Checks if the two specified objects are touching. Can take in object names as strings,
+    /// or Unity GameObjects
+    /// </summary>
+    /// <param name="obj1"></param>
+    /// <param name="obj2"></param>
+    /// <returns></returns>
     public static bool CheckCollision(GameObject obj1, GameObject obj2)
     { return CollisionHandler.Instance.ObjectsCollidersTouching(obj1, obj2);}
     public static bool CheckCollision(string obj1, string obj2)
     { return CheckCollision(GetObject(obj1), GetObject(obj2));}
     
-// *****   DEBUG COMMANDS   ****  
+// *****   Extras   **** 
+    /// <summary>
+    /// Royalty free sounds provided with sXR
+    /// </summary>
+    public enum ProvidedSounds{Beep, Buzz, Ding, Stop}
+    
+    /// <summary>
+    /// Plays one of the sounds provided by sXR. Use sxr.ProvidedSounds (.Beep, .Buzz, .Ding, .Stop)
+    /// </summary>
+    /// <param name="sound"></param>
+    public static void PlaySound(ProvidedSounds sound){}
+    
+    /// <summary>
+    /// Searches all 'Resources' folders to find the sound with the specified filename.
+    /// Do not include the file extension (e.g. 'mySound' and not 'mySound.mp3'
+    /// </summary>
+    /// <param name="soundName"></param>
+    public static void PlaySound(string soundName){SoundHandler.Instance.CustomSound(soundName);}
+    
+    /// <summary>
+    /// Applies the list of specified full-screen shaders. Can take shader indexes (int) or shader names (string)
+    /// </summary>
+    /// <param name="shaderNames"></param>
+    public static void ApplyShaders(List<string> shaderNames)
+    {ShaderHandler.Instance.ActivateShaders(shaderNames);}
+    public static void ApplyShaders(List<int> shaderIndexes)
+    {ShaderHandler.Instance.ActivateShaders(shaderIndexes);}
+
+    /// <summary>
+    /// Applies a specific shader specified by name
+    /// </summary>
+    /// <param name="shaderName"></param>
+    /// <param name="turnOffOthers"> if true, turns off all other full screen shaders</param>
+    public static void ApplyShader(string shaderName, bool turnOffOthers) {
+        if (turnOffOthers) ApplyShaders(new List<string> {shaderName});
+        else ShaderHandler.Instance.currentActiveNames.Add(shaderName); }
+
+
+// *****   DEBUG COMMANDS   **** 4
     /// <summary>
     /// Displays a debug message every [frameFrequency] frames if sxrSettings.debugMode==Frequent or every
     /// frame if sxrSettings.DebugMode==Framewise

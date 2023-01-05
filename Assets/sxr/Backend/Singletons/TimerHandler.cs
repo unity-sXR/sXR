@@ -20,6 +20,13 @@ public class TimerHandler : MonoBehaviour {
         else
             Debug.LogWarning("Timer with name \"" + timerName +"\" already exists"); }
 
+    public Timer GetTimer(string timerName) {
+        foreach (var timer in allTimers)
+            if (timer.GetName() == timerName)
+                return timer;
+        Debug.LogWarning("Could not find timer: " + timerName);
+        return null; }
+
     /// <summary>
     /// Checks if a timer with provided name is already initiated
     /// </summary>
@@ -30,6 +37,16 @@ public class TimerHandler : MonoBehaviour {
             if (timer.GetName() == timerName)
                 return true;
         return false; }
+
+    /// <summary>
+    /// Restarts the named timer
+    /// </summary>
+    /// <param name="timerName"></param>
+    public void RestartTimer(string timerName) {
+        if(TimerExists(timerName))
+            GetTimer(timerName).Restart();
+        else
+            Debug.Log("Unable to find timer: " + timerName); }
     
     /// <summary>
     /// Checks if Timer.duration (seconds) has passed for the named timer.
@@ -55,13 +72,23 @@ public class TimerHandler : MonoBehaviour {
     /// <param name="timerName"></param>
     /// <returns></returns>
     public float GetTimePassed(string timerName) {
-        foreach (var timer in allTimers)
-            if (timer.GetName() == timerName)
-                return timer.GetTimePassed();
-        sxr.DebugLog("No timer with name \"" + timerName + "\" found.");
+        if(TimerExists(timerName))
+            return GetTimer(timerName).GetTimePassed();
+        
+        Debug.Log("Unable to find timer: " + timerName);
         return 0; }
 
-    
+    /// <summary>
+    /// Checks how long has passed on the named timer
+    /// </summary>
+    /// <param name="timerName"></param>
+    /// <returns></returns>
+    public float GetTimeRemaining(string timerName) {
+        if(TimerExists(timerName))
+            return GetTimer(timerName).GetTimeRemaining();
+        
+        Debug.Log("Unable to find timer: " + timerName);
+        return 0; }
 
     // Singleton initiated on Awake()  
     public static TimerHandler Instance;

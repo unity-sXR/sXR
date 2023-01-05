@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,8 +33,11 @@ public class UI_Handler : MonoBehaviour
     public TextMeshProUGUI textboxTop, textboxTopMiddle, textboxBottomMiddle, textboxBottom, textboxTopLeft;
     
     private GameObject inputCanvas, submitButton, inputSlider, inputDropdown, rightLaser, leftLaser;
-    private bool submit; 
+    private bool submit;
 
+    public void UI_Submit()
+    { HideInputUI(); submit = true; }
+    
     public void DisplayInputUI() {
         if (inputCanvas == null)
             inputCanvas = sxr.GetObject("InputCanvas");
@@ -54,7 +58,6 @@ public class UI_Handler : MonoBehaviour
 
     public void HideInputUI()
     {
-        Debug.Log(inputCanvas.name);
         inputCanvas.SetActive(false);
         rightLaser.SetActive(false);
         leftLaser.SetActive(false);
@@ -91,36 +94,37 @@ public class UI_Handler : MonoBehaviour
     /// <param name="output"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public bool ParseInputUI<T>(out T output)
-    {
-        if (submit) {
-            if (inputSlider.activeSelf) {
-                if( typeof(T) != typeof(float))
-                    Debug.LogWarning("Cannot assign non float values with an InputSlider");
-                else {
-                    output = (T) (object) inputSlider.GetComponent<Slider>().value;
-                    HideInputUI();
-                    return true; } }
-            
-            else if (inputDropdown.activeSelf) {
-                if( typeof(T) != typeof(int) && typeof(T) != typeof(string)){
-                    Debug.LogWarning("Can only return int or string values with InputDropdown");}
-                else if (typeof(T) == typeof(int)) {
-                    output = (T) (object) inputDropdown.GetComponent<TMP_Dropdown>().value;
-                    return true; }
-                else {
-                    var dropdown = inputDropdown.GetComponent<TMP_Dropdown>();
-                    output = (T) (object) dropdown.options[dropdown.value].text;
-                    HideInputUI();
-                    return true; } }
+    public bool ParseInputUI<T>(out T output) {
+        if (inputSlider.activeSelf) {
+            if (typeof(T) == typeof(float) ) 
+                output = (T) (object) inputSlider.GetComponent<Slider>().value; 
+            else if (typeof(T) == typeof(int))
+                output = (T) (object) (int) inputSlider.GetComponent<Slider>().value; 
+            else {
+                Debug.LogWarning("Cannot assign non float values with an InputSlider");
+                output = default(T); } }
+        
+        
+        else if (inputDropdown.activeSelf) {
+            if (typeof(T) != typeof(int) && typeof(T) != typeof(string)){
+                Debug.LogWarning("Can only return int or string values with InputDropdown");
+                output = default(T); }
+            else if (typeof(T) == typeof(int))
+                output = (T) (object) inputDropdown.GetComponent<TMP_Dropdown>().value;
+            else {
+                var dropdown = inputDropdown.GetComponent<TMP_Dropdown>();
+                output = (T) (object) dropdown.options[dropdown.value].text; } }
 
-            else
-                Debug.Log("Cannot parse input without an active InputSlider or InputDropdown");
-        }
-
-        output = default(T); 
-        return false; 
-    }
+        else {
+            Debug.Log("Cannot parse input without an active InputSlider or InputDropdown");
+            output = default(T); }
+        
+        if (submit) { 
+            HideInputUI(); 
+            submit = false; 
+            return true;  }
+        
+        return false; }
 
     /// <summary>
     /// Displays the specified image (searches by image name without the extension, e.g. "myImage" not "myImage.jpeg".
@@ -220,14 +224,18 @@ public class UI_Handler : MonoBehaviour
     /// </summary>
     /// <param name="whichPosition">Position of image to enable</param>
     public void EnableComponentUI(sxr.UI_Position whichPosition){ EnableComponentUI(whichPosition, true);}
-    
+
     /// <summary>
     /// Disables all UI_overlays images
     /// </summary>
     public void DisableAllComponentsUI() {
-        foreach (var image in UI_overlays)
-            if( image != null && image.texture != null)
-                    image.enabled = false; }
+        for (int i = 0; i < UI_overlays.Length; i++) {
+            if (i != (int) sxr.UI_Position.VRcamera) {
+                var image = UI_overlays[i];
+                if (image != null && image.texture != null)
+                    image.enabled = false; } } }
+
+            
 
     /// <summary>
     /// Disables the specified UI component

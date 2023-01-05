@@ -1,7 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class ExperimenterDisplayHandler : MonoBehaviour
 {
@@ -9,7 +9,7 @@ public class ExperimenterDisplayHandler : MonoBehaviour
     public bool defaultDisplayTexts = true;
 
     private ExperimentHandler eh;
-    private TextMeshProUGUI subjNum, phaseNum, blockNum, trialNum;
+    public TMP_InputField subjNum, phaseNum, blockNum, trialNum;
     public TextMeshProUGUI displayText1, displayText2, displayText3, displayText4, displayText5;
 
     /// <summary>
@@ -33,24 +33,38 @@ public class ExperimenterDisplayHandler : MonoBehaviour
 
     private void Update() {
         if (defaultDisplayTexts && ExperimentHandler.Instance.phase > 0) {
-            displayText1.text = "Phase - Block (trial)  =  " + eh.phase + " - " + eh.block + " (" + eh.trial + ")";
+            displayText1.text = "'Textbox1' [Phase] - Block: trial(step)  =  [" + eh.phase + "] - " + eh.block + ": " 
+                                + eh.trial +"(" + eh.stepInTrial + ")";
             displayText1.enabled = true; 
             
-            displayText2.text = "Player Position: " + sxrSettings.Instance.vrCamera.transform.position;
+            displayText2.text = "'Textbox2' Player Position: " + sxrSettings.Instance.vrCamera.transform.position;
             displayText2.enabled = true;
+
+            displayText3.text = "'Textbox3' Trial Timer: " + sxr.TimeRemaining();
+            
         } }
+
+    public void ChangeTextbox(int whichBox, string text) {
+        if (whichBox > 0 && whichBox < 5) {
+            var boxes = new[] {displayText1, displayText2, displayText3, displayText4, displayText5};
+            boxes[whichBox - 1].text = text; }
+        else
+            Debug.LogWarning("Textbox objects on experimenter screen are numbered 1-5"); }
     
     private void Start() {
-        if (subjNum == null) subjNum = sxr.GetObject("SubjectNumber").GetComponentInChildren<TextMeshProUGUI>();
-        if (phaseNum == null) phaseNum = sxr.GetObject("SubjectNumber").GetComponentInChildren<TextMeshProUGUI>();
-        if (blockNum == null) blockNum = sxr.GetObject("SubjectNumber").GetComponentInChildren<TextMeshProUGUI>();
-        if (trialNum == null) trialNum = sxr.GetObject("SubjectNumber").GetComponentInChildren<TextMeshProUGUI>();
+        if (subjNum == null) subjNum = sxr.GetObject("SubjectNumber").GetComponentInChildren<TMP_InputField>();
+        if (phaseNum == null) phaseNum = sxr.GetObject("Phase").GetComponentInChildren<TMP_InputField>();
+        if (blockNum == null) blockNum = sxr.GetObject("Block").GetComponentInChildren<TMP_InputField>();
+        if (trialNum == null) trialNum = sxr.GetObject("Trial").GetComponentInChildren<TMP_InputField>();
         if (!displayText1) displayText1 = sxr.GetObject("DisplayText1").GetComponent<TextMeshProUGUI>();
         if (!displayText2) displayText2 = sxr.GetObject("DisplayText2").GetComponent<TextMeshProUGUI>();
         if (!displayText3) displayText3 = sxr.GetObject("DisplayText3").GetComponent<TextMeshProUGUI>();
         if (!displayText4) displayText4 = sxr.GetObject("DisplayText4").GetComponent<TextMeshProUGUI>();
         if (!displayText5) displayText5 = sxr.GetObject("DisplayText5").GetComponent<TextMeshProUGUI>();
         eh = ExperimentHandler.Instance;
+        
+        displayText4.text = "'Textbox4'";
+        displayText5.text = "'Textbox5'"; 
     }
 
     public static ExperimenterDisplayHandler Instance;

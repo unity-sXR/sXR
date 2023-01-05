@@ -17,7 +17,7 @@ public class GrabbableObject : MonoBehaviour
         
         foreach(var controller in controllers)
             if (CollisionHandler.Instance.ObjectsCollidersTouching(this.gameObject, controller) 
-                && sxr.CheckController(ControllerButton.Trigger, 0))
+                && sxr.GetTrigger(0))
             {
                 GetComponent<Rigidbody>().useGravity = false;
 

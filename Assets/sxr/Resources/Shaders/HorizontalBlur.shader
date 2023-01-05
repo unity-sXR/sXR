@@ -9,7 +9,12 @@
 			#pragma fragment frag
 			#pragma fragmentoption ARB_precision_hint_fastest
 	    	
-	    	#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+	    	            #if SXR_USE_URP
+            // Must include Unity's URP ShaderLibrary 
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #else
+            #include "UnityCG.cginc"
+            #endif
 
 			struct appdata{ 
                 float4 vertex : POSITION;
@@ -21,7 +26,13 @@
 
             v2f vert (appdata v){ 
                 v2f o;
-                o.vertex = TransformObjectToHClip(v.vertex); 
+
+            	#if SXR_USE_URP
+                o.vertex = TransformObjectToHClip(v.vertex); // Clips objects based on ZTest property, converts to homogenous coordinates
+                #else
+                o.vertex = UnityObjectToClipPos(v.vertex); 
+                #endif
+            	
                 o.uv = v.uv; 
                 return o; }
 	    	

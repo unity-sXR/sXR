@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 /// <summary>
@@ -24,9 +22,17 @@ public class SceneObjectsHandler : MonoBehaviour {
         allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
         foreach (var obj in allObjects)
             if (obj.name == name) return obj;
-        Debug.LogError("Search for object: \'"+name+"\' unsuccessful, check spelling and whitespace");
-        Debug.LogError("Available objects: "+allObjects.ToArray().ToCommaSeparatedString());
+        Debug.LogWarning("Search for object: \'"+name+"\' unsuccessful, check spelling and whitespace");
+        Debug.LogWarning("Available objects: "+allObjects.ToArray().ToCommaSeparatedString());
         return null; }
+
+    public bool ObjectExists(string name)
+    {
+        allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
+        foreach (var obj in allObjects)
+            if (obj.name == name) return true;
+        return false; 
+    }
     
     public void DebugListAllObjects(){ foreach(var obj in allObjects) Debug.Log(obj.name);}
     public void AddMotionObject(ObjectMotion objectMotion){motionObjects.Add(objectMotion);}

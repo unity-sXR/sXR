@@ -10,7 +10,6 @@
 			#pragma fragmentoption ARB_precision_hint_fastest
 	    	
             #if SXR_USE_URP
-            // Must include Unity's URP ShaderLibrary 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #else
             #include "UnityCG.cginc"

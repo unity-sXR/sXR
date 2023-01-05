@@ -13,7 +13,7 @@ public class ExperimentHandler : MonoBehaviour {
     private string subjectFile = "";
     private string backupFile = "";
 
-    private float trialStartTime;
+    private Timer trialTimer=null;
     private FileHandler fh = new FileHandler();
 
     private float lastTriggerPress;
@@ -31,6 +31,20 @@ public class ExperimentHandler : MonoBehaviour {
             lastTriggerPress = Time.time;
             return true; }
         return false; }
+
+
+    public void StartTimer(float duration) {
+        if(trialTimer==null) trialTimer = new Timer("TRIAL_TIMER", duration);
+        else {
+            Debug.LogWarning("Experiment timer restarted with 'StartTimer' but already initialized. Overwriting previous timer");
+            trialTimer.Restart(); } }
+
+    public bool CheckTimer() { return trialTimer.GetTimePassed() > trialTimer.GetDuration();}
+    public void RestartTimer(){trialTimer.Restart();}
+
+    public float GetTimeRemaining() { return trialTimer != null ? trialTimer.GetTimeRemaining() : 0;}
+
+    public float GetTimePassed() { return trialTimer.GetTimePassed(); }
 
     /// <summary>
     /// Sets experiment name (overrides the automatic naming when the "Start" button is pressed)
@@ -70,7 +84,7 @@ public class ExperimentHandler : MonoBehaviour {
     
     public void WriteToTaggedFile(string tag, string toWrite) {
         toWrite = subjectNumber + "," + Time.time + "," + block + "," + trial + "," +
-                  (Time.time - trialStartTime) + toWrite;
+                  trialTimer.GetTimePassed() + toWrite;
         fh.AppendLine(subjectFile + "_" + tag + ".csv", toWrite);
         if (backupFile != "") fh.AppendLine(backupFile + "_" + tag + ".csv", toWrite); }
 

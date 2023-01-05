@@ -1,3 +1,4 @@
+using Unity.XR.OpenVR;
 using UnityEngine;
 
 /// <summary>
@@ -10,7 +11,7 @@ public class GetScreenDimensions : MonoBehaviour
     void SetRes()
     {
         //sxrSettings.Instance.vrCamera.fieldOfView = sxrSettings.Instance.outputCamera.fieldOfView;
-        Debug.Log(Screen.currentResolution.width + ", " + Screen.currentResolution.height); 
+        Debug.Log("Using resolution: " + Screen.currentResolution.width + ", " + Screen.currentResolution.height); 
         vrCameraTarget = new RenderTexture(Screen.currentResolution.width, Screen.currentResolution.height, 32);
         sxrSettings.Instance.vrCamera.targetTexture = vrCameraTarget;
         UI_Handler.Instance.GetRawImageAtPosition(sxr.UI_Position.VRcamera).texture = vrCameraTarget;

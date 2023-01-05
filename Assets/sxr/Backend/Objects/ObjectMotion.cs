@@ -27,10 +27,9 @@ public class ObjectMotion {
     /// </summary>
     /// <returns>True once allotted time has passed</returns>
     public bool UpdatePositionDisposeAtTargetLocation() {
-        gameObj.transform.position = (objectDestination - initialPosition) * Time.deltaTime / timeTaken;;
-
         if (Time.time >= arrivalTime) {
             gameObj.transform.position = objectDestination;
             return true; }
+        gameObj.transform.position = (objectDestination - initialPosition) * Time.deltaTime / timeTaken;
         return false ; }
 }

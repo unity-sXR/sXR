@@ -26,6 +26,20 @@ public class SoundHandler : MonoBehaviour
     [SerializeField] private AudioClip beep, ding, buzz, stop=null;
 
     /// <summary>
+    /// Plays one of the sounds provided by sXR
+    /// </summary>
+    /// <param name="sound"></param>
+    public void PlayBuiltinSound(sxr.ProvidedSounds sound) {
+        switch (sound) {
+            case sxr.ProvidedSounds.Beep: Beep();
+                break;
+            case sxr.ProvidedSounds.Buzz: Buzz();
+                break;
+            case sxr.ProvidedSounds.Ding: Ding();
+                break;
+            case sxr.ProvidedSounds.Stop: Stop();
+                break; } }
+    /// <summary>
     /// Plays beep sound effect
     /// </summary>
     public void Beep()
