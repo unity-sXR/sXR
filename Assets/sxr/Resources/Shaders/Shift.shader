@@ -45,7 +45,7 @@ Shader "Shift"{
             {
                 sampler2D tex = _MainTex; 
                 float _texelw = _MainTex_TexelSize.x;
-                float2 uv = i.screenPos;
+                float2 uv = i.uv;
                 uint sampleDistance = 15;
 
                 int pixelsX = round((.5-gazeX)/_texelw);

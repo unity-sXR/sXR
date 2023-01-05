@@ -9702,7 +9702,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RightLaser
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1691609468886655035, guid: 9ba6c3343d8e5c24b958642cf71e88b9, type: 3}
+    - {fileID: 8934325113872155733, guid: 9ba6c3343d8e5c24b958642cf71e88b9, type: 3}
+    - {fileID: 1691609468886655034, guid: 9ba6c3343d8e5c24b958642cf71e88b9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -10488,7 +10491,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6169362948042999663, guid: 81eb8a07f64251845bbe5c9a2ef66920, type: 3}
+    - {fileID: 4114370766090396417, guid: 81eb8a07f64251845bbe5c9a2ef66920, type: 3}
+    - {fileID: 6169362948042999662, guid: 81eb8a07f64251845bbe5c9a2ef66920, type: 3}
     m_RemovedGameObjects:
     - {fileID: 6169362948888292468, guid: 81eb8a07f64251845bbe5c9a2ef66920, type: 3}
     - {fileID: 6169362947660032383, guid: 81eb8a07f64251845bbe5c9a2ef66920, type: 3}
