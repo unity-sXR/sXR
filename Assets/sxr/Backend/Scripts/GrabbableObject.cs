@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.XR.Interaction;
 
 public class GrabbableObject : MonoBehaviour
 {
@@ -18,7 +15,7 @@ public class GrabbableObject : MonoBehaviour
             {rightController, leftController};
         
         foreach(var controller in controllers)
-            if (controller.activeSelf && CollisionHandler.Instance.ObjectsCollidersTouching(this.gameObject, controller) 
+            if (controller!=null && controller.activeSelf && CollisionHandler.Instance.ObjectsCollidersTouching(this.gameObject, controller) 
                 && sxr.GetTrigger(0))
             {
                 GetComponent<Rigidbody>().useGravity = false;
