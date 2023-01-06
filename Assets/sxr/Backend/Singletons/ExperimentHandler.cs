@@ -61,7 +61,7 @@ public class ExperimentHandler : MonoBehaviour {
         this.experimentName = experimentName;
         this.subjectNumber = subjectNumber; 
         ParseFileNames();
-        phase = 1; 
+        phase = phase == 0 ? 1 : phase;
     }
 
     /// <summary>
