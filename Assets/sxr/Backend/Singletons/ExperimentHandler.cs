@@ -78,13 +78,13 @@ public class ExperimentHandler : MonoBehaviour {
             : ""; }
 
     public void WriteHeaderToTaggedFile(string tag, string headerInfo) {
-        headerInfo = "SubjectNumber,Time,BlockNumber,TrialNumber,TrialTime," + headerInfo;
+        headerInfo = "SubjectNumber,Time,Phase,BlockNumber,TrialNumber,Step,TrialTime," + headerInfo;
         fh.AppendLine(subjectFile + "_" + tag + ".csv", headerInfo);
         if (backupFile != "") fh.AppendLine(backupFile + "_" + tag + ".csv", headerInfo); }
     
     public void WriteToTaggedFile(string tag, string toWrite) {
-        toWrite = subjectNumber + "," + Time.time + "," + block + "," + trial + "," +
-                  trialTimer.GetTimePassed() + toWrite;
+        toWrite = subjectNumber + "," + Time.time + "," + phase + "," + block + "," + trial + "," 
+                  + stepInTrial + "," + trialTimer.GetTimePassed() + "," + toWrite;
         fh.AppendLine(subjectFile + "_" + tag + ".csv", toWrite);
         if (backupFile != "") fh.AppendLine(backupFile + "_" + tag + ".csv", toWrite); }
 

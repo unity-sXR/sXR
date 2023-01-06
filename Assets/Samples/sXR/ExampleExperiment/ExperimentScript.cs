@@ -67,7 +67,7 @@ public class ExperimentScript : MonoBehaviour
                             sxr.ChangeExperimenterTextbox(4, "Number of goals: " + numHits); 
                             if (sxr.GetPhase() == 3) {
                                 sxr.PauseRecordingCameraPos();
-                                sxr.WriteHeaderToTaggedFile("mainFile", numHits.ToString()); } }
+                                sxr.WriteToTaggedFile("mainFile", numHits.ToString()); } }
 
                         if (sxr.CheckCollision("Sphere", "TargetBox")) {
                             numHits++;
