@@ -16,4 +16,4 @@ The prefab can be found in "Assets/sxr/Prefabs". The prefab parent object contai
 
 ## vrCameraAssembly
 The vr
-[vrCameraAssembly](https://github.com/unity-sXR/ReadmeImages/blob/main/vrCameraAssembly.png)
+![vrCameraAssembly](https://github.com/unity-sXR/ReadmeImages/blob/main/vrCameraAssembly.png)
