@@ -556,7 +556,16 @@ public static class sxr {
         if (turnOffOthers) ApplyShaders(new List<string> {shaderName});
         else ShaderHandler.Instance.currentActiveNames.Add(shaderName); }
 
-
+    /// <summary>
+    /// Launches the SRanipal Eye Calibration tool.  Returns true if calibration is successful
+    /// </summary>
+    /// <returns></returns>
+    public static bool LaunchEyeCalibration() {
+        #if SXR_USE_SRANIPAL
+            return GazeHandler.Instance.LaunchEyeCalibration; 
+        #endif
+        return false; }
+    
 // *****   DEBUG COMMANDS   **** 4
     /// <summary>
     /// Displays a debug message every [frameFrequency] frames if sxrSettings.debugMode==Frequent or every

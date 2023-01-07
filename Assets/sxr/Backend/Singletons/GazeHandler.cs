@@ -36,6 +36,14 @@ namespace sxr_internal {
 
         public bool RecordingGaze() { return recordEyeTracker; }
 
+        public void LaunchEyeCalibration()
+        {
+            if (SRanipal_Eye.LaunchEyeCalibration()) return true; 
+            else if (SRanipal_Eye_v2.LaunchEyeCalibration()) return true;
+            Debug.Log("Failed to complete eye calibration");
+            return false; 
+        }
+        
         public void Update() {
             if (sxrSettings.Instance.RecordThisFrame() & recordEyeTracker)
                 ExperimentHandler.Instance.WriteToTaggedFile("eyetracker",
