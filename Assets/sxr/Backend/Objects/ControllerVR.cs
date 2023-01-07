@@ -6,8 +6,8 @@ using UnityEngine;
 /// </summary>
 public class ControllerVR : MonoBehaviour
 {
-    public float[] buttonTimers = new float[Enum.GetNames(typeof(ControllerButton)).Length];
-    public bool[] buttonPressed = new bool[Enum.GetNames(typeof(ControllerButton)).Length];
+    public float[] buttonTimers = new float[Enum.GetNames(typeof(sxr.ControllerButton)).Length];
+    public bool[] buttonPressed = new bool[Enum.GetNames(typeof(sxr.ControllerButton)).Length];
     
     public bool useController;
 

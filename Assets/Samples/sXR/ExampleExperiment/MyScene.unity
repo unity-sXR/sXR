@@ -123,6 +123,107 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &486546159 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 697777117648311258, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
+  m_PrefabInstance: {fileID: 593289065}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &486546165
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486546159}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &593289065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,6 +283,22 @@ PrefabInstance:
     - target: {fileID: 697777116264440786, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 697777117648311234, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
+      propertyPath: stop
+      value: 
+      objectReference: {fileID: 8300000, guid: 47da651c2b25a024781cb2823b69387b, type: 3}
+    - target: {fileID: 697777117648311234, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
+      propertyPath: soundPlayer
+      value: 
+      objectReference: {fileID: 486546165}
+    - target: {fileID: 3078904345266153972, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3078904345266153972, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 3553769515331743220, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -255,6 +372,30 @@ PrefabInstance:
       propertyPath: m_fontColorGradient.bottomLeft.r
       value: 0.1981132
       objectReference: {fileID: 0}
+    - target: {fileID: 4179994669040316689, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179994669040316689, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179994669202706622, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179994669202706622, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179994669736619314, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179994669736619314, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 4179994669821102177, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
       propertyPath: m_text
       value: 
@@ -315,6 +456,14 @@ PrefabInstance:
       propertyPath: m_fontColorGradient.bottomRight.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4179994670042614704, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179994670042614704, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 4969641337478444417, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -342,7 +491,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 697777117648311258, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 486546165}
   m_SourcePrefab: {fileID: 100100000, guid: 8bd18b6534e5a724c849bc5efb1fac11, type: 3}
 --- !u!1 &696975637
 GameObject:

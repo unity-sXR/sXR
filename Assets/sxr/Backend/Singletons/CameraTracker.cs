@@ -3,14 +3,14 @@ using UnityEngine.XR;
 
 public class CameraTracker : MonoBehaviour {
     [SerializeField] private bool recordCamera = false, recordGaze=false;
-    
-    private float recordHeadTimer = 0.0f;
+
     private Camera vrCamera;
     private bool headerPrinted;
 
     public void WriteCameraTrackerHeader(bool recordingGaze) {
-        ExperimentHandler.Instance.WriteToTaggedFile("camera_tracker",
-            "xPos,yPos,zPos,xRot,yRot,zRot,gazeScreenPosX,gazeScreenPosY"); }
+        ExperimentHandler.Instance.WriteHeaderToTaggedFile("camera_tracker", recordingGaze ?
+            "xPos,yPos,zPos,xRot,yRot,zRot,gazeScreenPosX,gazeScreenPosY" 
+            : "xPos,yPos,zPos,xRot,yRot,zRot"); }
     
     public void StartRecording(bool recordGaze) {
         if (!headerPrinted) WriteCameraTrackerHeader(recordGaze);
@@ -30,24 +30,22 @@ public class CameraTracker : MonoBehaviour {
         if (sxrSettings.Instance.RecordThisFrame() & recordCamera) {
             if (recordGaze)
                 ExperimentHandler.Instance.WriteToTaggedFile("camera_tracker",
-                    (gameObject.transform.position.x + "," +
-                    gameObject.transform.position.y + "," + 
-                    gameObject.transform.position.z + "," +
-                    gameObject.transform.rotation.eulerAngles.x + "," +
-                    gameObject.transform.rotation.eulerAngles.y + "," + 
-                    gameObject.transform.rotation.eulerAngles.z + "," +
-                    GazeHandler.Instance.GetScreenFixationPoint()).Replace("(","").Replace(")",""));
+                    (vrCamera.gameObject.transform.position.x + "," +
+                     vrCamera.gameObject.transform.position.y + "," + 
+                     vrCamera.gameObject.transform.position.z + "," +
+                     vrCamera.gameObject.transform.rotation.eulerAngles.x + "," +
+                     vrCamera.gameObject.transform.rotation.eulerAngles.y + "," + 
+                     vrCamera.gameObject.transform.rotation.eulerAngles.z + "," +
+                     GazeHandler.Instance.GetScreenFixationPoint()).Replace("(","").Replace(")",""));
             
             else
                 ExperimentHandler.Instance.WriteToTaggedFile("camera_tracker",
-                    gameObject.transform.position.x + "," +
-                    gameObject.transform.position.y + "," + 
-                    gameObject.transform.position.z +
-                    gameObject.transform.rotation.eulerAngles.x + "," +
-                    gameObject.transform.rotation.eulerAngles.y + "," + 
-                    gameObject.transform.rotation.eulerAngles.z);
-            
-            recordHeadTimer = Time.time; } }
+                    vrCamera.gameObject.transform.position.x + "," +
+                    vrCamera.gameObject.transform.position.y + "," + 
+                    vrCamera.gameObject.transform.position.z + "," +
+                    vrCamera.gameObject.transform.rotation.eulerAngles.x + "," +
+                    vrCamera.gameObject.transform.rotation.eulerAngles.y + "," + 
+                    vrCamera.gameObject.transform.rotation.eulerAngles.z); } }
 
     // Singleton initiated on Awake()
     public static CameraTracker Instance; 

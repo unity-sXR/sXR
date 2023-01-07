@@ -184,6 +184,20 @@ public static class sxr {
     public static JoystickHandler.JoyStickDirection GetJoystickDirection() { return GetJoystickDirection();}
 
     
+    public enum ControllerButton{
+        LH_Trigger, LH_SideButton, LH_TrackPadRight, 
+        LH_TrackPadLeft, LH_TrackPadUp, LH_TrackPadDown,
+        LH_ButtonA, LH_ButtonB,
+    
+        RH_Trigger, RH_SideButton, RH_TrackPadRight,
+        RH_TrackPadLeft, RH_TrackPadUp, RH_TrackPadDown,
+        RH_ButtonA, RH_ButtonB,
+    
+        Trigger, SideButton, TrackPadRight,
+        TrackPadLeft, TrackPadUp, TrackPadDown,
+        ButtonA, ButtonB
+    }
+    
     /// <summary>
     /// Marks the time  of a "true" value for each check of the  button.
     /// Returns true if ControllerButton [whichButton] is pressed and the

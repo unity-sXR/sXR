@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ public class ExperimentHandler : MonoBehaviour {
     /// <param name="frequency">Pause between returning true when trigger/spacebar/mouse is held</param>
     /// <returns>true if [frequency] seconds has passed since last trigger and trigger/space/mouse is pressed</returns>
     public bool GetTrigger(float frequency){
-        if((sxr.CheckController( ControllerButton.Trigger) || 
+        if((sxr.CheckController( sxr.ControllerButton.Trigger) || 
             Input.GetKey(KeyCode.Space) || Input.GetAxis("Fire1")>0 || Input.GetMouseButton((int) MouseButton.Left))
            && Time.time-lastTriggerPress > frequency) {
             sxr.DebugLog("Valid trigger press detected: " + Time.time); 
@@ -72,9 +73,11 @@ public class ExperimentHandler : MonoBehaviour {
             Application.dataPath + Path.DirectorySeparatorChar + "Experiments" + Path.DirectorySeparatorChar + 
             experimentName + Path.DirectorySeparatorChar : sxrSettings.Instance.subjectDataDirectory;
 
-        subjectFile = sxrSettings.Instance.subjectDataDirectory + subjectNumber;
+        subjectFile = sxrSettings.Instance.subjectDataDirectory +  DateTime.Today.Date.Month + "_" + DateTime.Today.Date.Day +  
+                      "_" + subjectNumber;
         backupFile = sxrSettings.Instance.backupDataDirectory != ""
-            ? sxrSettings.Instance.backupDataDirectory + subjectNumber
+            ? sxrSettings.Instance.backupDataDirectory + DateTime.Today.Date.Month + "_"  + DateTime.Today.Date.Day + "_" 
+              + subjectNumber
             : ""; }
 
     public void WriteHeaderToTaggedFile(string tag, string headerInfo) {
