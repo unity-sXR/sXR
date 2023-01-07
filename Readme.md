@@ -64,8 +64,20 @@ The EventSystem that comes in the sxr_prefab is set up to accept mouse input and
 ## Data Recording
 
 ## User Interface
+InputSlider() - Creates and displays a slider that the participant can manipulate with the controller laser
+InputDropdown() - Creates and displays a dropdown menu that the participant can manipulate with the controller laser 
+ParseInputUI() - Gets the response from an open InputSlider or InputDropdown
+DisplayText() - Displays text to the VR headset at the specified position
+HideText() - Hides text on the VR headset at the specified position
+HideAllText() - Hides all text locations displayed on the VR headset
+DisplayImage() - Displays an image at the specified location on the VR headset
+HideImageUI() - Hides an image at the specified location on the VR headset
+HideImagesUI() - Hides all images displayed on the VR headset
 
 ## Input Devices
+GetTrigger() - Returns true if the VR controller trigger, a joystick trigger, or the keyboard's spacebar are pressed
+KeyHeld() - Returns true continuously with the specified delay 
+
 
 ## Object Manipulation
 
