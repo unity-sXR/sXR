@@ -1,18 +1,6 @@
 ![sXR Logo](https://github.com/unity-sXR/sXR/blob/master/Assets/sxr/Resources/sxrlogo.png)
 
-[Background](#background) / [Beginners](#for-beginners)
-
-[The Basics](#the-basics)
-
-[sXR_prefab](#sxr_prefab)
-
-[Commands List](#commands-list)
-
-[Coming Soon...](#coming-soon)
-
-[Requested Features](#requested-features)
-
-[Version History](#version-history)
+[Background](#background) | [Beginners](#for-beginners) | [The Basics](#the-basics) | [sXR_prefab](#sxr_prefab) | [Commands List](#commands-list) | [Coming Soon...](#coming-soon) | [Requested Features](#requested-features) | [Version History](#version-history)
 
 
 # Background
