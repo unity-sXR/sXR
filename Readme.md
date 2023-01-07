@@ -12,6 +12,8 @@
 
 [Coming Soon...](#coming-soon)
 
+[Requested Features](#requested-features)
+
 [Version History](#version-history)
 
 
@@ -47,8 +49,34 @@ sxrBackend contains most of the Singletons required to run sXR. By clicking into
 The EventSystem that comes in the sxr_prefab is set up to accept mouse input and VR input for the UI. This InputSystem uses bindings in the action map (located in the main sxr folder). To create custom commands, bind the correct buttons with the action map and use the EventSystem's InputSystem to specify what that action will do in the UI. There's no need to create bindings for normal VR controls, as 'sxr.CheckController(sxr.ControllerButton.[whichButton])' will check all of the major VR controller bindings.
 
 # Commands List
+[Experiment Flow](##experiment-flow)
+
+[Data Recording](##data-recording)
+
+[Object Manipulation](##object-manipulation)
+## Experiment Flow
+
+## Data Recording
+
+## User Interface
+
+## Input Devices
+
+## Object Manipulation
+
+## Extras
+
+
 
 # Coming Soon...
+Eye-tracking/shader tutorial + sxr.commands for assigning shaders to objects
+Gaze-ray objects - record when the user looks at certain objects
+Command Recorder - record when the user presses buttons (for replaying scene)
+Playback mode - Replay the participants view and highlight their gaze
+VR Controller "Touch" option for buttons (i.e. when the controller button is  touched but not pressed)
+
+# Requested Features
+N/a
 
 # Version History
 6 January 2023 - Version 0.0.0: Initial release 
