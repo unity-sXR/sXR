@@ -1,12 +1,12 @@
 ![sXR Logo](https://github.com/unity-sXR/sXR/blob/master/Assets/sxr/Resources/sxrlogo.png)
 
-[#-background](Background)
-[#-for-beginners](Beginners)
-[#-the-basics](The Basics)
-[#-sxr_prefab](sXR_prefab)
-[#-commands-list](Commands List)
-[#-coming-soon](Coming Soon...)
-[#-version-history](Version History)
+[#background](Background)
+[#for-beginners](Beginners)
+[#the-basics](The Basics)
+[#sxr_prefab](sXR_prefab)
+[#commands-list](Commands List)
+[#coming-soon](Coming Soon...)
+[#version-history](Version History)
 
 # Background
 simpleXR (sXR) is a software package designed to facilitate rapid development of XR experiments. Researchers in many different fields are starting to use virtual/augmented reality for studying things like learning, navigation, vision, or fear. However, the packages previously available for developing in XR were directed at computer scientists or people with a strong background in programming. sXR makes programming as simple as possible by providing one easy to use library with single line commands for more complicated tasks. The package is built for Unity and can be downloaded as a template project or added to previous projects with little effort. Just replace the scene's camera with the sXR_prefab and you'll gain access to multiple user interfaces and a plethora of commands that will allow you to start gathering data in days instead, not months. Extended reality is hard...  simpleXR is simple.
