@@ -53,7 +53,7 @@ The EventSystem that comes in the sxr_prefab is set up to accept mouse input and
 
 [Data Recording](##data-recording)
 
-[Object Manipulation](##object-manipulation)
+[Object Manipulation](#object-manipulation)
 ## Experiment Flow
 
 ## Data Recording
