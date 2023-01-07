@@ -146,6 +146,10 @@ The EventSystem that comes in the sxr_prefab is set up to accept mouse input and
 
 **ApplyShader()** - Activates the shader with the provided name. Will de-activate all other shaders if turnOffOthers=true is passed
 
+**LaunchEyeCalibration()** - If using SRanipal, will launch the eye calibration tool and return true if calibration is successful
+
+**GetFullGazeInfo()** - Returns all available gaze info. Supports screenFixationX, screenFixationY, gazeFixationX, gazeFixationY, gazeFixationZ, leftEyePositionX, leftEyePositionY, leftEyePositionZ, rightEyePositionX, rightEyePositionY, rightEyePositionZ, leftEyeRotationX, leftEyeRotationY,leftEyeRotationZ, rightEyeRotationX, rightEyeRotationY, rightEyeRotationZ, leftEyePupilSize, rightEyePupilSize, leftEyeOpenAmount, and rightEyeOpenAmount (if these options are supported by the headset eyetracker, pupil size and eye open amount are not available through OpenXR).
+
 **DebugLog()** - Displays a debug every message based on the frequency specified in sXR_settings and passed in as the 'frameFrequency' 
 
 
