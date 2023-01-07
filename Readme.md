@@ -9,4 +9,11 @@ simpleXR (sXR) is a software package designed to facilitate rapid development of
 While sXR makes Unity much simpler, it can still be complicated if you're just starting out. The project contains a sample experiment with a step-by-step video walkthrough [(youtube link)](https://youtu.be/NZE6ZiD2sPA). If you don't understand the ExperimentScript.cs file of the sample experiment, I recommend watching the entire video as it breaks down the entire development process. Feel free to reach out if you get stuck!
 
 # The Basics...
-The majority of sXR can be used by just typing "sxr." + whatever it is you are trying to do. Any modern IDE will suggest methods to use if you use the correct keyword. For example, typing "sxr.file" will bring up the commands sxr.WriteHeaderToTaggedFile() and sxr.WriteToTaggedFile(). The package contains thorough documentation for all the commands in the main sxr class, and descriptions of what each command done will be available in the docstring. In Unity, the only requirement for using sXR commands is replacing the main camera with the sxr_prefab object (found in the prefabs folder). 
+The majority of sXR can be used by just typing "sxr." + whatever it is you are trying to do. Any modern IDE will suggest methods to use if you use the correct keyword. For example, typing "sxr.file" will bring up the commands sxr.WriteHeaderToTaggedFile() and sxr.WriteToTaggedFile(). The package contains thorough documentation for all the commands in the main sxr class, and descriptions of what each command does will be available in the docstring. In Unity, the only requirement for using sXR commands is replacing the main camera with the sxr_prefab object (found in the prefabs folder). 
+
+# sXR_prefab
+The prefab can be found in "Assets/sxr/Prefabs". The prefab parent object contains the "sxrSettings.cs" singleton. These settings will automatically be overwritten by whatever is selected in the sXR pop-up (accessed by clicking the sXR tab on the toolbar at the top of the window). The prefab has 5 child objects. "ExperimenterScreen", "OutputCameraAssembly", "vrCameraAssembly, "sxrBackend", and "EventSystem".  
+
+## vrCameraAssembly
+The vr
+[vrCameraAssembly](https://github.com/unity-sXR/ReadmeImages/blob/main/vrCameraAssembly.png)
