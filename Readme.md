@@ -9,7 +9,7 @@ simpleXR (sXR) is a software package designed to facilitate rapid development of
 # For Beginners
 While sXR makes Unity much simpler, it can still be complicated if you're just starting out. The project contains a sample experiment with a step-by-step video walkthrough [(youtube link)](https://youtu.be/NZE6ZiD2sPA). If you don't understand the ExperimentScript.cs file of the sample experiment, I recommend watching the entire video as it breaks down the entire development process. Feel free to reach out if you get stuck!
 
-#Tutorials
+# Tutorials
 [The Basics](https://github.com/unity-sXR/sXR/wiki/The-Basics) 
 
 [Vive Pro Eye Setup](https://github.com/unity-sXR/sXR/wiki/Vive-Pro-Eye-Setup)
