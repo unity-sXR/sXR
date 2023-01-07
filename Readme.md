@@ -1,8 +1,6 @@
 ![sXR Logo](https://github.com/unity-sXR/sXR/blob/master/Assets/sxr/Resources/sxrlogo.png)
 
-[Background](#background)
-
-[Beginners](#for-beginners)
+[Background](#background) / [Beginners](#for-beginners)
 
 [The Basics](#the-basics)
 
