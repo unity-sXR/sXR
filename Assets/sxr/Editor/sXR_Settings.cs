@@ -1,8 +1,9 @@
 using System.IO;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Build;
+
+using sxr_internal;
 
 public class sXR_Settings : EditorWindow
 {

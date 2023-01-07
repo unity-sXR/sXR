@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using sxr_internal;
 
 /// <summary>
 /// Contains static calls to allow for simple, easy to understand access to sxr's functions...
@@ -175,15 +176,15 @@ public static class sxr {
     /// </summary>
     public static bool KeyReleased(KeyCode whichKey) { return Input.GetKeyUp(whichKey);}
 
+    public enum JoyStickDirection { Left, Right, Up, Down, UpLeft, UpRight, DownLeft, DownRight, None }
 
     /// <summary>
     /// Returns the direction the joystick is being pushed in. Can be any of the 9 possible
     /// directions  
     /// </summary>
     /// <returns>JoystickDirection (Left, Right, Up, Down, UpLeft, UpRight, DownLeft, DownRight, None</returns>
-    public static JoystickHandler.JoyStickDirection GetJoystickDirection() { return GetJoystickDirection();}
+    public static JoyStickDirection GetJoystickDirection() { return GetJoystickDirection();}
 
-    
     public enum ControllerButton{
         LH_Trigger, LH_SideButton, LH_TrackPadRight, 
         LH_TrackPadLeft, LH_TrackPadUp, LH_TrackPadDown,
@@ -379,7 +380,7 @@ public static class sxr {
     /// <summary>
     /// Start recording the eyetracker information every time sxrSettings.recordFrame==currentFrame. Updates automatically
     /// based on sxrSettings.recordFrequency or can be manually called by setting sxrSettings.recordFrame=[frame to record]
-    /// Default output location is "Assets/Experiments/[experimentName]/[subject_number]_camera_tracker.csv
+    /// Default output location is "Assets/Experiments/[experimentName]/[subject_number]_eyetracker.csv
     /// </summary>
     public static void StartRecordingEyeTrackerInfo() { GazeHandler.Instance.StartRecording(); }
     /// <summary>
@@ -505,7 +506,6 @@ public static class sxr {
     public static void EnableObjectPhysics(string objectName, bool useGravity)
     { EnableObjectPhysics(GetObject(objectName), useGravity);}
     public static void EnableObjectPhysics(string objectName){EnableObjectPhysics(objectName, true);}
-   
 
     /// <summary>
     /// Checks if the two specified objects are touching. Can take in object names as strings,

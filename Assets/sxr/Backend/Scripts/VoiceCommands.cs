@@ -4,33 +4,28 @@ using System;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 
-/// <summary>
-/// Used to create voice activation commands 
-/// </summary>
-public class VoiceCommands : MonoBehaviour
+namespace sxr_internal
 {
-    private KeywordRecognizer keywordRecognizer;
+    /// <summary>
+    /// Used to create voice activation commands 
+    /// </summary>
+    public class VoiceCommands : MonoBehaviour {
+        private KeywordRecognizer keywordRecognizer;
+        private Dictionary<string, Action> actions = new Dictionary<string, Action>(); 
 
-    private Dictionary<string, Action> actions = new Dictionary<string, Action>(); 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Debug.Log(Microphone.devices[0]);
-        actions.Add("Keyword", Command1);
+        void Start() {
+            Debug.Log(Microphone.devices[0]);
+            actions.Add("Keyword", Command1);
 
-        keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
-        keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
-        keywordRecognizer.Start(); 
-    }
+            keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
+            keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
+            keywordRecognizer.Start(); }
+        
+        void RecognizedSpeech(PhraseRecognizedEventArgs speech) {
+            Debug.Log(speech.text);
+            actions[speech.text].Invoke(); }
 
-    // Update is called once per frame
-    void RecognizedSpeech(PhraseRecognizedEventArgs speech)
-    {
-        Debug.Log(speech.text);
-        actions[speech.text].Invoke();
-    }
-
-    void Command1(){ /*Do Stuff*/}
+        void Command1(){ /*Do Stuff*/}
     
-
+    }
 }
