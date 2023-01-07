@@ -49,11 +49,16 @@ sxrBackend contains most of the Singletons required to run sXR. By clicking into
 The EventSystem that comes in the sxr_prefab is set up to accept mouse input and VR input for the UI. This InputSystem uses bindings in the action map (located in the main sxr folder). To create custom commands, bind the correct buttons with the action map and use the EventSystem's InputSystem to specify what that action will do in the UI. There's no need to create bindings for normal VR controls, as 'sxr.CheckController(sxr.ControllerButton.[whichButton])' will check all of the major VR controller bindings.
 
 # Commands List
-[Experiment Flow](##experiment-flow)
+[Experiment Flow](#experiment-flow)
 
-[Data Recording](##data-recording)
+[Data Recording](#data-recording)
+
+[User Interface](#user-interface)
 
 [Object Manipulation](#object-manipulation)
+
+[Extras](#extras)
+
 ## Experiment Flow
 
 ## Data Recording
