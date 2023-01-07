@@ -17,11 +17,13 @@ While sXR makes Unity much simpler, it can still be complicated if you're just s
 [Vive Pro Eye Setup](https://github.com/unity-sXR/sXR/wiki/Vive-Pro-Eye-Setup)
 
 # Features
-Autosave - Enabled by default, can be turned off in the sXR tab of the toolbar.  Automatically saves the scene when "Play" is pressed.  Be sure to use "File->Save As" to name your scene or it will ask where you want to save.  
+**Autosave** - Enabled by default, can be turned off in the sXR tab of the toolbar.  Automatically saves the scene when "Play" is pressed.  Be sure to use "File->Save As" to name your scene or it will ask where you want to save.  
 
-Automatic VR - Enabled by default, can be turned off in the sXR tab of the toolbar.  Automatically switches between moving the camera with keyboard controls (arrow keys/WASD) or with HMD tracking.
+**Automatic VR** - Enabled by default, can be turned off in the sXR tab of the toolbar.  Automatically switches between moving the camera with keyboard controls (arrow keys/WASD) or with HMD tracking.
 
-Safety Wall - Enabled by default, can be turned off in the sXR tab of the toolbar. Sometimes we don't want participants to see the wireframe boundary of SteamVR and need a bit more control over where the HMD will stop you.  Declare the size of your space in the sXR tab and a "Stop" message will appear when the headset reaches the border. Do not rely solely on this feature since HMD tracking can be unstable. Always have participants walk carefully when they're wearing a headset.  
+**Safety Wall** - Enabled by default, can be turned off in the sXR tab of the toolbar. Sometimes we don't want participants to see the wireframe boundary of SteamVR and need a bit more control over where the HMD will stop you.  Declare the size of your space in the sXR tab and a "Stop" message will appear when the headset reaches the border. Do not rely solely on this feature since HMD tracking can be unstable. Always have participants walk carefully when they're wearing a headset.  
+
+**Automatic position/eye-tracker recording** - Using 'sxr.StartRecordingCameraPos()' or 'sxr.StartRecordingEyeTrackerInfo()' will enable automatic recording of the position/eye-tracker info at the frequency you specify in the sXR tab of the toolbar. Synchronizes eye-tracker and position information allowing for the scene to be replayed with the participant's gaze highlighted
 
 
 # Commands List
