@@ -165,10 +165,15 @@ The EventSystem that comes in the sxr_prefab is set up to accept mouse input and
 
 # Coming Soon...
 Eye-tracking/shader tutorial + sxr.commands for assigning shaders to objects
+
 Gaze-ray objects - record when the user looks at certain objects
+
 Command Recorder - record when the user presses buttons (for replaying scene)
+
 Playback mode - Replay the participants view and highlight their gaze
+
 VR Controller "Touch" option for buttons (i.e. when the controller button is  touched but not pressed)
+
 
 # Requested Features
 N/a
