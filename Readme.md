@@ -1,6 +1,6 @@
 ![sXR Logo](https://github.com/unity-sXR/sXR/blob/master/Assets/sxr/Resources/sxrlogo.png)
 
-[Background](#background) | [Beginners](#for-beginners) | [The Basics](#the-basics) | [sXR_prefab](#sxr_prefab) | [Commands List](#commands-list) | [Coming Soon...](#coming-soon) | [Requested Features](#requested-features) | [Version History](#version-history)
+[Background](#background) | [Beginners](#for-beginners) | Tutorials(#tutorials) | [Features](#features) | [Commands List](#commands-list) | [Coming Soon...](#coming-soon) | [Requested Features](#requested-features) | [Version History](#version-history)
 
 
 # Background
@@ -9,30 +9,18 @@ simpleXR (sXR) is a software package designed to facilitate rapid development of
 # For Beginners
 While sXR makes Unity much simpler, it can still be complicated if you're just starting out. The project contains a sample experiment with a step-by-step video walkthrough [(youtube link)](https://youtu.be/NZE6ZiD2sPA). If you don't understand the ExperimentScript.cs file of the sample experiment, I recommend watching the entire video as it breaks down the entire development process. Feel free to reach out if you get stuck!
 
-# The Basics...
-The majority of sXR can be used by just typing "sxr." + whatever it is you are trying to do. This is done intentionally to simplify commands. There's no need to include any "using" statements,  Any modern IDE will suggest methods to use if you use the correct keyword. For example, typing "sxr.file" will bring up the commands sxr.WriteHeaderToTaggedFile() and sxr.WriteToTaggedFile(). The package contains thorough documentation for all the commands in the main sxr class, and descriptions of what each command does will be available in the docstring. 
+#Tutorials
+[The Basics](https://github.com/unity-sXR/sXR/wiki/The-Basics) 
 
-sXR is designed to be "string based", meaning you can just enter the name of an object/resource for most functions. For example, starting a timer with sxr.StartTimer("myTimer") will create a timer named "myTimer" that you can access later with things like sxr.TimePassed("myTimer") or sxr.RestartTimer("myTimer"). Resources located in any "Resources" folder can also be accessed by the filename without the extension. If you have a file named "mySound.mp3", using sxr.PlaySound("mySound") will play the sound (note you do not include the file extension '.mp3' in the PlaySound() command). You can also access UI images, shaders, and game objects by providing the name into the proper function. For most users, searching for objects every frame won't effect performance. However, for more complicated environments you can also pass in the GameObject directly (e.g. sxr.MoveObject(MyObjectGameObject, 1, 0, 0)).  
+[Vive Pro Eye Setup](https://github.com/unity-sXR/sXR/wiki/Vive-Pro-Eye-Setup)
 
-In Unity, the only requirement for using sXR commands is replacing the main camera with the sxr_prefab object (found in the prefabs folder). 
+# Features
+Autosave - Enabled by default, can be turned off in the sXR tab of the toolbar.  Automatically saves the scene when "Play" is pressed.  Be sure to use "File->Save As" to name your scene or it will ask where you want to save.  
 
-# sXR_prefab
-The prefab can be found in "Assets/sxr/Prefabs". The prefab parent object contains the "sxrSettings.cs" singleton. These settings will automatically be overwritten by whatever is selected in the sXR pop-up (accessed by clicking the sXR tab on the toolbar at the top of the window). The prefab has 5 child objects. "ExperimenterScreen", "OutputCameraAssembly", "vrCameraAssembly, "sxrBackend", and "EventSystem".  
+Automatic VR - Enabled by default, can be turned off in the sXR tab of the toolbar.  Automatically switches between moving the camera with keyboard controls (arrow keys/WASD) or with HMD tracking.
 
-## vrCameraAssembly ![vrCameraAssembly](https://github.com/unity-sXR/ReadmeImages/blob/main/vrCameraAssembly.png)
-The vrCameraAssembly contains the vrCamera (the camera that tracks the movement of the HMD) and two controllers that are displayed as semi-transparent capsules. To change the controller objects, simply replace the "LeftController" and "RightController" with objects named identically. sXR will automatically look for the "LeftController" and "RightController" objects and use them for grabbing objects. The vrCamera object contains the audio listener and audio source for playing sounds using sxr.PlaySound(). These are attached to the camera so sounds played in the virtual environment still get detected by the scene's audio listener.  By default, a CapsuleCollider is attached to the vrCamera. You can check if the participant is colliding with objects by using sxr.CheckCollision("vrCamera", "[other object name]"). The vrCamera output is not sent directly to the screen, instead it is passed to the OutputCameraAssembly" for further processing.
+Safety Wall - Enabled by default, can be turned off in the sXR tab of the toolbar. Sometimes we don't want participants to see the wireframe boundary of SteamVR and need a bit more control over where the HMD will stop you.  Declare the size of your space in the sXR tab and a "Stop" message will appear when the headset reaches the border. Do not rely solely on this feature since HMD tracking can be unstable. Always have participants walk carefully when they're wearing a headset.  
 
-## OutputCameraAssembly ![outputCameraAssembly](https://github.com/unity-sXR/ReadmeImages/blob/main/outputCameraAssembly.png)
-The screen captured by the vrCamera is sent to the main canvas of the OutputCameraAssembly. This is done so any fullscreen shader effects used on the vrCamera input won't be applied to any of the UI canvases. OutputCameraAssembly's camera has two canvases, the MainCanvas (containing the primary UI which has the VRcamera view) and the InputCanvas. Images can be placed in any of the MainCanvas's  designated locations by using sxr.DisplayImage("MyImage", sxr.UI_Position.[whichPosition]). Similarly, text can be displayed with sxr.DisplayText("Text to display", sxr.TextPosition.[whichPosition]). The second canvas, InputCanvas, allows the user to use the LeftLaser and RightLaser to answer prompts initiated with sxr.InputSlider() and sxr.InputDropdown() (see sample experiment for proper implementation).  
-
-## ExperimenterScreen ![experimenterScreen](https://github.com/unity-sXR/ReadmeImages/blob/main/experimenterScreen.png)
-The ExperimenterScreen object contains things that will be displayed on the computer monitor, but not passed to the headset. This includes the StartScreen, along with 5 textboxes.  By default, the first 3 boxes are already used. The first textbox contains "[Phase] Block - Trial(Step)" to keep track of what step of the experiment the participant is on. The second textbox contains the player's position, and the third textbox contains the time remaining in the default trial timer (accessed by using Timer commands without including a timer name, e.g. 'sxr.StartTimer()'). To enable/disable the default textboxes, use DefaultExperimenterScreenTextboxes(true/false).  
-
-## sxrBackend ![sxrBackend](https://github.com/unity-sXR/ReadmeImages/blob/main/sxrBackend.png)
-sxrBackend contains most of the Singletons required to run sXR. By clicking into these scripts in the Inspector, you can change any of the public variables... This can be useful if you're trying to debug a certain phase/block since you can click into the ExperimentHandler and directly edit the experiment flow information. 
-
-## EventSystem ![eventSystem](https://github.com/unity-sXR/ReadmeImages/blob/main/eventSystem.png)
-The EventSystem that comes in the sxr_prefab is set up to accept mouse input and VR input for the UI. This InputSystem uses bindings in the action map (located in the main sxr folder). To create custom commands, bind the correct buttons with the action map and use the EventSystem's InputSystem to specify what that action will do in the UI. There's no need to create bindings for normal VR controls, as 'sxr.CheckController(sxr.ControllerButton.[whichButton])' will check all of the major VR controller bindings.
 
 # Commands List
 [Experiment Flow](#experiment-flow)
