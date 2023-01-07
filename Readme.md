@@ -8,13 +8,13 @@
 [#coming-soon](Coming Soon...)
 [#version-history](Version History)
 
-# Background
+#Background
 simpleXR (sXR) is a software package designed to facilitate rapid development of XR experiments. Researchers in many different fields are starting to use virtual/augmented reality for studying things like learning, navigation, vision, or fear. However, the packages previously available for developing in XR were directed at computer scientists or people with a strong background in programming. sXR makes programming as simple as possible by providing one easy to use library with single line commands for more complicated tasks. The package is built for Unity and can be downloaded as a template project or added to previous projects with little effort. Just replace the scene's camera with the sXR_prefab and you'll gain access to multiple user interfaces and a plethora of commands that will allow you to start gathering data in days instead, not months. Extended reality is hard...  simpleXR is simple.
 
-# For Beginners
+#For Beginners
 While sXR makes Unity much simpler, it can still be complicated if you're just starting out. The project contains a sample experiment with a step-by-step video walkthrough [(youtube link)](https://youtu.be/NZE6ZiD2sPA). If you don't understand the ExperimentScript.cs file of the sample experiment, I recommend watching the entire video as it breaks down the entire development process. Feel free to reach out if you get stuck!
 
-# The Basics...
+#The Basics...
 The majority of sXR can be used by just typing "sxr." + whatever it is you are trying to do. Any modern IDE will suggest methods to use if you use the correct keyword. For example, typing "sxr.file" will bring up the commands sxr.WriteHeaderToTaggedFile() and sxr.WriteToTaggedFile(). The package contains thorough documentation for all the commands in the main sxr class, and descriptions of what each command does will be available in the docstring. 
 
 sXR is designed to be "string based", meaning you can just enter the name of an object/resource for most functions. For example, starting a timer with sxr.StartTimer("myTimer") will create a timer named "myTimer" that you can access later with things like sxr.TimePassed("myTimer") or sxr.RestartTimer("myTimer"). Resources located in any "Resources" folder can also be accessed by the filename without the extension. If you have a file named "mySound.mp3", using sxr.PlaySound("mySound") will play the sound (note you do not include the file extension '.mp3' in the PlaySound() command). You can also access UI images, shaders, and game objects by providing the name into the proper function. For most users, searching for objects every frame won't effect performance. However, for more complicated environments you can also pass in the GameObject directly (e.g. sxr.MoveObject(MyObjectGameObject, 1, 0, 0)).  
