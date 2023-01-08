@@ -156,6 +156,7 @@ Playback mode - Replay the participants view and highlight their gaze
 
 VR Controller "Touch" option for buttons (i.e. when the controller button is  touched but not pressed)
 
+Hand-tracking without controllers (for supported devices- Vive Pro Eye, Quest 2, etc)
 
 # Requested Features
 N/a
